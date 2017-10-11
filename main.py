@@ -1,4 +1,4 @@
-""" A naive web crawler to find the shortest path between two wikipedia articles.
+""" A naive crawler to find the shortest path between two wikipedia articles.
 
     DISCLAIMER: CURRENTLY ONLY GOES THREE LEVELS DEEP
     TODO: Make deeper
