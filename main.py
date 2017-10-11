@@ -6,15 +6,16 @@ import networkx as nx
 
 START_TIME = time.time()
 START_TERM = "LaunchCode"
-END_TERM = "Facebook"
+END_TERM = "The Wealth of Nations"
 PATH_BOOL = False
+depth = 1
 
 
 def build_graph(start, stop):
     """ Builds the wiki graph """
 
     graph = nx.Graph()  # Instantiate graph
-    depth = 1
+    global depth
     global PATH_BOOL
     child_name_list = []
     parent_name_list = []  # List of all nodes on current level
@@ -42,6 +43,9 @@ def build_graph(start, stop):
             except wikipedia.exceptions.PageError:  # skips if page doesn't exist
                 print('PageError, continuing.')
                 continue
+            except wikipedia.exceptions.DisambiguationError:  # TODO: find a way to prevent this error
+                print('Disambiguation Error, continuing.')
+                continue
             child_name_list = parent_page.links  # create list of child nodes
             graph.add_nodes_from(child_name_list)  # add child nodes to graph
             for child_name in child_name_list:  # add edges between start node and child nodes
@@ -66,17 +70,20 @@ def path_exists(graph, start, end):
         return False
 
 
-def main():
-    """ Runs this file and prints output """
+def main(parser="lxml"):
+    """ Runs this file and prints output, receives parser to try and 
+    avoid rare Disambiguation Errors -- which doesn't work  yet 
+    -- handled currenlty by continuing on line 48. """
 
     graph = build_graph(START_TERM, END_TERM)
 
     if PATH_BOOL:
         short_path = nx.shortest_path(graph, START_TERM, END_TERM)  # Find shortest path
+        print('DEGREES: ', depth - 1)
         print('SHORTEST PATH: ', short_path)
     else:
         print('NO PATH FOUND')
     print("TIME: %s seconds" % (time.time() - START_TIME))
 
 if __name__ == "__main__":
-    main()
+    main("lxml")
