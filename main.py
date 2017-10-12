@@ -6,7 +6,7 @@ import networkx as nx
 
 START_TIME = time.time()
 START_TERM = "LaunchCode"
-END_TERM = "Facebook"
+END_TERM = "The Wealth of Nations"
 PATH_BOOL = False
 depth = 1
 
@@ -72,9 +72,10 @@ def path_exists(graph, start, end):
 
 
 def main(parser="lxml"):
-    """ Runs this file and prints output, receives parser to try and 
+    """ Runs this file and prints output, receives parser to try and
     avoid rare Disambiguation Errors -- which doesn't work  yet 
     -- handled currently by continuing on line 48. """
+
     print('Crawling wikipedia, assembling model.  Please wait.')
     graph = build_graph(START_TERM, END_TERM)
 
