@@ -1,4 +1,4 @@
-""" A naive crawler to find the shortest path between two wikipedia articles. """
+""" A crawler to build a network model and find the shortest path between two wikipedia articles. """
 
 import time
 import wikipedia
@@ -9,6 +9,9 @@ START_TERM = "LaunchCode"
 END_TERM = "The Wealth of Nations"
 PATH_BOOL = False
 depth = 1
+
+
+# TODO: make graph persistent
 
 
 def build_graph(start, stop):
@@ -60,8 +63,9 @@ def build_graph(start, stop):
 
 
 def path_exists(graph, start, end):
-    """ Tests if path exists between start and end,
-    returns True or some gibberish that breaks my progam """
+    """ Tests if path exists between start and end and returns True """
+
+    # TODO: Add and test try/except instead to deal with unexpected data on else
 
     test = nx.has_path(graph, start, end)
     if test is True:
